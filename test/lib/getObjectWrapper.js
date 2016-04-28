@@ -7,9 +7,9 @@ chai.use(sinonChai);
 
 describe('getObjectWrapper', function() {
 
-    it('should call s3 with bucket name and key name', function() {
+    it('should call s3 with bucket name, the key name and the callback function', function() {
         var fakeS3 = { getObject: sinon.spy() };
-        var getObjectWrapper = require('../lib/getObjectWrapper.js')(fakeS3);
+        var getObjectWrapper = require('../../lib/getObjectWrapper.js')(fakeS3);
         var params = {
             bucket: 'images',
             key: 'foo.png'
