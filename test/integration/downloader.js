@@ -2,21 +2,29 @@ var chai = require('chai');
 var sinon = require('sinon');
 var sinonChai = require('sinon-chai');
 var expect = chai.expect;
+var fs = require('fs');
 chai.use(sinonChai);
 
 var AWS = require('aws-sdk');
 var params = {
-    Bucket: 'cgcdn-img',
-    Key: 'nation/users/huebr.gif'
+    Bucket: 'download-test-component',
+    Key: 'sample.jpg',
+    ContentType: 'image/jpeg'
 };
+
+var sampleFile = '../support/sample.jpg';
 
 describe('download', function() {
     beforeEach(function(done) {
         this.timeout(10000);
         var s3 = new AWS.S3();
-        s3.headObject(params, function(err, data) {
+        s3.createBucket({Bucket: params.Bucket}, function(err, data) {
             if(err) throw err;
-            done();
+            fs.createReadStream(sampleFile).pipe(s3.putObject(params, function(err, data) {
+                if(err) throw err;
+                console.log(data);
+                done();
+            }));
         });
     });
 
@@ -25,7 +33,7 @@ describe('download', function() {
         var downloader = require('../../lib/downloader.js');
         downloader.download(params, function(err, response) {
             expect(err).to.equal(null);
-            expect(response.ContentType).to.equal('image/gif');
+            expect(response.ContentType).to.equal('image/jpeg');
             done();
         });
     });
