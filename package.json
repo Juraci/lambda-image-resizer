@@ -1,0 +1,25 @@
+{
+  "name": "lambda-image-resizer",
+  "version": "0.1.0",
+  "description": "lambda function to resize images",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juraci/lambda-image-resizer.git"
+  },
+  "author": "Juraci Vieira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Juraci/lambda-image-resizer/issues"
+  },
+  "homepage": "https://github.com/Juraci/lambda-image-resizer#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0"
+  }
+}
