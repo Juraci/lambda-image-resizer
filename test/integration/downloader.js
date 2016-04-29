@@ -6,31 +6,62 @@ var fs = require('fs');
 chai.use(sinonChai);
 
 var AWS = require('aws-sdk');
-var params = {
-    Bucket: 'download-test-component',
-    Key: 'sample.jpg',
-    ContentType: 'image/jpeg'
-};
+var s3 = new AWS.S3();
 
-var sampleFile = '../support/sample.jpg';
+var sampleFile = './test/support/sample.jpg';
 
 describe('download', function() {
+    // Creates a Bucket and inserts an image there
     beforeEach(function(done) {
-        this.timeout(10000);
-        var s3 = new AWS.S3();
+        this.timeout(30000);
+
+        var params = {
+            Bucket: 'download-test-component',
+            Key: 'sample.jpg',
+            ContentType: 'image/jpeg',
+            Body: fs.createReadStream(sampleFile)
+        };
+
         s3.createBucket({Bucket: params.Bucket}, function(err, data) {
             if(err) throw err;
-            fs.createReadStream(sampleFile).pipe(s3.putObject(params, function(err, data) {
+            console.log('----> Bucket created');
+            s3.putObject(params, function(err, data) {
                 if(err) throw err;
-                console.log(data);
+                console.log('----> Sample file uploaded');
                 done();
-            }));
+            });
         });
     });
 
-    it('should get the image', function(done) {
+    // Deletes the image and the Bucket
+    afterEach(function(done) {
+        this.timeout(30000);
+
+        var params = {
+            Bucket: 'download-test-component',
+            Key: 'sample.jpg',
+        };
+
+        s3.deleteObject(params, function(err, data) {
+            if(err) throw err;
+            console.log('----> Sample file deleted');
+            s3.deleteBucket({Bucket: params.Bucket}, function(err, data) {
+                if(err) throw err;
+                console.log('----> Bucket deleted');
+                done();
+            });
+        });
+    });
+
+    it('should download the image', function(done) {
         this.timeout(10000);
         var downloader = require('../../lib/downloader.js');
+
+        var params = {
+            Bucket: 'download-test-component',
+            Key: 'sample.jpg',
+        };
+
         downloader.download(params, function(err, response) {
             expect(err).to.equal(null);
             expect(response.ContentType).to.equal('image/jpeg');
