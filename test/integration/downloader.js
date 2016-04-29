@@ -9,6 +9,7 @@ var AWS = require('aws-sdk');
 var s3 = new AWS.S3();
 
 var sampleFile = './test/support/sample.jpg';
+var downloader = require('../../lib/downloader.js');
 
 describe('download', function() {
     // Creates a Bucket and inserts an image there
@@ -56,7 +57,6 @@ describe('download', function() {
 
     it('should download the image', function(done) {
         this.timeout(10000);
-        var downloader = require('../../lib/downloader.js');
 
         var params = {
             Bucket: 'download-test-component',

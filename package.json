@@ -23,6 +23,7 @@
     "sinon-chai": "^2.8.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.3.6"
+    "aws-sdk": "^2.3.6",
+    "gm": "^1.22.0"
   }
 }
