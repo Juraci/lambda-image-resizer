@@ -19,7 +19,8 @@ describe('download', function() {
             Bucket: 'download-test-component',
             Key: 'sample.jpg',
             ContentType: 'image/jpeg',
-            Body: fs.createReadStream(sampleFile)
+            Body: fs.createReadStream(sampleFile),
+            ACL: 'public-read-write'
         };
 
         s3.createBucket({Bucket: params.Bucket}, function(err, data) {
