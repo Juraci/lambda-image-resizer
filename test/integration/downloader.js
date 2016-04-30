@@ -54,18 +54,20 @@ describe('download', function() {
         });
     });
 
-    it('should download the image', function(done) {
-        this.timeout(10000);
+    it('should download the image', function() {
+        this.timeout(30000);
 
         var params = {
             Bucket: 'download-test-component',
             Key: 'sample.jpg',
         };
 
-        downloader.download(params, function(err, response) {
-            expect(err).to.equal(null);
+        return downloader.download(params)
+        .then(function(response) {
             expect(response.ContentType).to.equal('image/jpeg');
-            done();
+        })
+        .catch(function(err) {
+            throw err;
         });
     });
 });

@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.3.6",
+    "es6-promise": "^3.1.2",
     "gm": "^1.22.0"
   }
 }
