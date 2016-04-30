@@ -6,11 +6,10 @@ var AWS = require('aws-sdk');
 var s3 = new AWS.S3();
 
 var sampleFile = './test/support/sample.jpg';
-var downloader = require('../../lib/downloader.js');
+var downloader = require('../../lib/s3Wrapper.js');
 
-describe('Downloader module', function() {
+describe('S3 wrapper module', function() {
     describe('#download', function() {
-
         // Creates a Bucket and inserts an image there
         beforeEach(function(done) {
             this.timeout(30000);
