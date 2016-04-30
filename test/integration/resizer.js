@@ -4,26 +4,25 @@ var fs = require('fs');
 
 var resizer = require('../../lib/resizer.js');
 var gm = require('gm').subClass({imageMagick: true});
-var largeImage = './test/support/largerThan640.jpg';
 
-describe('resize', function() {
-    it('should resize the image larger than 640p', function(done) {
-        this.timeout(10000);
-        var readStream = fs.createReadStream(largeImage);
-        resizer.resize(readStream, function(err, buffer) {
-            expect(err).to.equal(null);
+describe('Resizer module', function() {
+    describe('#resize', function() {
+        describe('when the image format is jpg', function() {
+            var largeImage = './test/support/largerThan640.jpg';
+            var readStream = fs.createReadStream(largeImage);
 
-            gm(buffer).size(function(err, size) {
-                expect(Math.max(size.width, size.height)).to.be.at.most(640);
-                done();
-
-                /* to actually write the new image
-                var newFile = fs.createWriteStream('./test/support/resised-img.jpg');
-                newFile.write(buffer, function(err) {
-                    if(err) throw err;
-                    done();
+            it('should resize the image larger than 640p', function(done) {
+                this.timeout(10000);
+                return resizer.resize(readStream)
+                .then(function(buffer) {
+                    gm(buffer).size(function(err, size) {
+                        expect(Math.max(size.width, size.height)).to.be.at.most(640);
+                        done();
+                    });
+                })
+                .catch(function(err) {
+                    throw err;
                 });
-                */
             });
         });
     });
