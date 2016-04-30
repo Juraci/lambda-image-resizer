@@ -1,9 +1,6 @@
 var chai = require('chai');
-var sinon = require('sinon');
-var sinonChai = require('sinon-chai');
 var expect = chai.expect;
 var fs = require('fs');
-chai.use(sinonChai);
 
 var resizer = require('../../lib/resizer.js');
 var gm = require('gm').subClass({imageMagick: true});

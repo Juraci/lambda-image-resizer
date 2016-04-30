@@ -1,9 +1,8 @@
 var chai = require('chai');
-var sinon = require('sinon');
-var sinonChai = require('sinon-chai');
+var chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
 var expect = chai.expect;
 var fs = require('fs');
-chai.use(sinonChai);
 
 var AWS = require('aws-sdk');
 var s3 = new AWS.S3();
