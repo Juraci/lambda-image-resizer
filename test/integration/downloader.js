@@ -10,64 +10,65 @@ var s3 = new AWS.S3();
 var sampleFile = './test/support/sample.jpg';
 var downloader = require('../../lib/downloader.js');
 
-describe('download', function() {
-    // Creates a Bucket and inserts an image there
-    beforeEach(function(done) {
-        this.timeout(30000);
+describe('Downloader module', function() {
+    describe('#download', function() {
 
-        var params = {
-            Bucket: 'download-test-component',
-            Key: 'sample.jpg',
-            ContentType: 'image/jpeg',
-            Body: fs.createReadStream(sampleFile),
-            ACL: 'public-read-write'
-        };
+        // Creates a Bucket and inserts an image there
+        beforeEach(function(done) {
+            this.timeout(30000);
 
-        s3.createBucket({Bucket: params.Bucket}, function(err, data) {
-            if(err) throw err;
-            console.log('----> Bucket created');
-            s3.putObject(params, function(err, data) {
+            var params = {
+                Bucket: 'download-test-component',
+                Key: 'sample.jpg',
+                ContentType: 'image/jpeg',
+                Body: fs.createReadStream(sampleFile),
+                ACL: 'public-read-write'
+            };
+
+            s3.createBucket({Bucket: params.Bucket}, function(err, data) {
                 if(err) throw err;
-                console.log('----> Sample file uploaded');
-                done();
+                s3.putObject(params, function(err, data) {
+                    if(err) throw err;
+                    done();
+                });
             });
         });
-    });
 
-    // Deletes the image and the Bucket
-    afterEach(function(done) {
-        this.timeout(30000);
+        // Deletes the image and the Bucket
+        afterEach(function(done) {
+            this.timeout(30000);
 
-        var params = {
-            Bucket: 'download-test-component',
-            Key: 'sample.jpg',
-        };
+            var params = {
+                Bucket: 'download-test-component',
+                Key: 'sample.jpg',
+            };
 
-        s3.deleteObject(params, function(err, data) {
-            if(err) throw err;
-            console.log('----> Sample file deleted');
-            s3.deleteBucket({Bucket: params.Bucket}, function(err, data) {
+            s3.deleteObject(params, function(err, data) {
                 if(err) throw err;
-                console.log('----> Bucket deleted');
-                done();
+
+                s3.deleteBucket({Bucket: params.Bucket}, function(err, data) {
+                    if(err) throw err;
+                    done();
+                });
             });
         });
-    });
 
-    it('should download the image', function() {
-        this.timeout(30000);
+        it('should download the image from the S3 bucket', function() {
+            this.timeout(30000);
 
-        var params = {
-            Bucket: 'download-test-component',
-            Key: 'sample.jpg',
-        };
+            var params = {
+                Bucket: 'download-test-component',
+                Key: 'sample.jpg',
+            };
 
-        return downloader.download(params)
-        .then(function(response) {
-            expect(response.ContentType).to.equal('image/jpeg');
-        })
-        .catch(function(err) {
-            throw err;
+            return downloader.download(params)
+            .then(function(response) {
+                expect(response.ContentType).to.equal('image/jpeg');
+            })
+            .catch(function(err) {
+                throw err;
+            });
         });
+
     });
 });
