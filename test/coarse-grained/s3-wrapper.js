@@ -7,7 +7,7 @@ var s3 = new AWS.S3();
 
 var fileName = 'sample.jpg';
 var filePath = './test/support/' + fileName;
-var s3Wrapper = require('../../lib/s3Wrapper.js');
+var s3Wrapper = require('../../lib/s3-wrapper.js');
 
 describe('S3 wrapper module', function() {
     describe('#download', function() {
