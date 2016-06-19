@@ -4,6 +4,7 @@
 var fileParser = require('./lib/file-parser.js');
 var s3Wrapper  = require('./lib/s3-wrapper.js');
 var resizer    = require('./lib/resizer.js');
+var config     = require('./config.js')();
 
 exports.handler = function(event, context, callback) {
     context.callbackWaitsForEmptyEventLoop = false;
@@ -18,7 +19,7 @@ exports.handler = function(event, context, callback) {
     }
 
     s3Wrapper.download({Bucket: bucketName, Key: s3Object.key}).then(function(response) {
-        resizer.resize(response.Body).then(function(buffer) {
+        resizer.resize(response.Body, config).then(function(buffer) {
             if(!buffer) {
                 console.info('File is already in the expected size');
                 callback(null);
