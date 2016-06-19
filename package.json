@@ -4,7 +4,7 @@
   "description": "lambda function to resize images",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test --recursive",
+    "test": "mocha ./test/fine-grained/ --recursive",
     "build": "zip index -r lib node_modules index.js config.js"
   },
   "repository": {
