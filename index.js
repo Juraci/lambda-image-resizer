@@ -6,7 +6,7 @@ var s3Wrapper  = require('./lib/s3-wrapper.js');
 var resizer    = require('./lib/resizer.js');
 var config     = require('./config.js')();
 
-exports.handler = function(event, context, callback) {
+exports.imageResizer = function(event, context, callback) {
     context.callbackWaitsForEmptyEventLoop = false;
     var s3Object = event.Records[0].s3.object;
     var bucketName = event.Records[0].s3.bucket.name;
