@@ -36,7 +36,7 @@ You can check the logs in `CloudWatch > LogGroups > aws/lambda/imageResizer`
 
 ### Changing the target size
 
-First run npm install to install all the dependencies locally. You can change the target size in the **config.js** file. 
+First run `npm install` to install all the dependencies locally. You can change the target size in the **config.js** file. 
 ```
 /*jslint node: true */
 "use strict";
@@ -59,4 +59,4 @@ Then just compact the following files and folders into a zip file:
 If you have the zip command line program installed you can simply run:
 `$ npm run build`
 
-THis command will automatically compact all the necessary files into a index.zip file in the root folder.
+This command will automatically compact all the necessary files into a index.zip file in the root folder.
