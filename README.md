@@ -1,4 +1,5 @@
 # lambda-image-resizer
+[![Build Status](https://travis-ci.org/Juraci/lambda-image-resizer.svg?branch=master)](https://travis-ci.org/Juraci/lambda-image-resizer)
 
 ### What
 
