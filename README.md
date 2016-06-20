@@ -26,7 +26,7 @@ All you will need is the **index.zip** file that sits in the root path of this p
 ###### Configuring the lambda
 
 1. Go to Event Sources tab
-2. Select S3 as the venvent source type
+2. Select S3 as the event source type
 3. Select the target Bucket
 4. Select Object Created > Put as the Event type
 5. Optionally you can filter by the folder inside your bucket
