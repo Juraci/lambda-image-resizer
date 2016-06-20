@@ -1,11 +1,11 @@
 # lambda-image-resizer
 [![Build Status](https://travis-ci.org/Juraci/lambda-image-resizer.svg?branch=master)](https://travis-ci.org/Juraci/lambda-image-resizer)
 
-### What
+### What?
 
 This is an **Amazon AWS lambda function** that automatically resizes images to smaller resolutions when they are uploaded to a S3 bucket on Amazon, so you can save some bandwidth, storage space and money.
 
-### How
+### How?
 
 All you will need is the **index.zip** file that sits in the root path of this project.
 
