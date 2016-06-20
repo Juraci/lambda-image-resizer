@@ -17,4 +17,13 @@ describe('File parser module', function() {
             expect(fileParser.isImage('sample-file.txt')).to.equal(false);
         });
     });
+    describe('#getExtension', function() {
+        it('returns jpeg when the extension is jpeg', function() {
+            expect(fileParser.getExtension('sample-file.jpg')).to.equal('jpeg');
+        });
+
+        it('returns png when the extension is png', function() {
+            expect(fileParser.getExtension('sample-file.png')).to.equal('png');
+        });
+    });
 });

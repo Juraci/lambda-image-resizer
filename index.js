@@ -18,6 +18,8 @@ exports.imageResizer = function(event, context, callback) {
         callback(null);
     }
 
+    var extension = fileParser.getExtension(s3Object.key);
+
     s3Wrapper.download({Bucket: bucketName, Key: s3Object.key}).then(function(response) {
         resizer.resize(response.Body, config).then(function(buffer) {
             if(!buffer) {
@@ -28,7 +30,7 @@ exports.imageResizer = function(event, context, callback) {
                     Bucket: bucketName,
                     Key: s3Object.key,
                     Body: buffer,
-                    ContentType: 'image/jpeg'
+                    ContentType: 'image/' + extension,
                 }).then(function(data) {
                     console.info('Image uploaded!');
                     callback(null);
